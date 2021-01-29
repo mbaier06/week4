@@ -20,7 +20,32 @@ let quotes = [
 // Element.insertAdjacentHTML(position, text)
 // https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML
 
-window.addEventListener('DOMContentLoaded', function() {
+//  1) Before refactor:
+​
+function pageLoaded() {
+  for (let i = 0; i < quotes.length; i++) {
+    let quote = quotes[i]
+    let outputElement = document.querySelector('.output')
+    outputElement.insertAdjacentHTML('beforeend', `
+      <h1 class="font-bold my-8 text-xl text-blue-300">${quote}</h1>
+    `)
+  }
+}
+​
+//  2) After refactor:
+​
+function appendQuote(string) {
   let outputElement = document.querySelector('.output')
-  outputElement.insertAdjacentHTML('beforeend', 'Hello!')
-})
+  outputElement.insertAdjacentHTML('beforeend', `
+    <h1 class="font-bold my-8 text-xl text-blue-300">${string}</h1>
+  `)
+}
+​
+function pageLoaded() {
+  for (let i = 0; i < quotes.length; i++) {
+    let quote = quotes[i]
+    appendQuote(quote)
+  }
+}
+​
+window.addEventListener('DOMContentLoaded', pageLoaded)
